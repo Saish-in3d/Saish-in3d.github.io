@@ -44,5 +44,18 @@
       sync();
     })();
   </script>
+  <script>
+    // IDE-style extras for C++/HLSL: function calls, Unreal type prefixes and macros.
+    (function () {
+      document.querySelectorAll(".highlight .n").forEach(function (el) {
+        var name = el.textContent, next = el.nextSibling;
+        while (next && next.nodeType === 3 && !next.textContent.trim()) next = next.nextSibling;
+        var opens = next && /^\(/.test(next.textContent);
+        if (/^[A-Z][A-Z0-9_]{2,}$/.test(name)) el.classList.add("hl-macro");
+        else if (/^[FUATEIS][A-Z][A-Za-z0-9_]*$/.test(name)) el.classList.add("hl-type");
+        else if (opens) el.classList.add("hl-fn");
+      });
+    })();
+  </script>
 </body>
 </html>

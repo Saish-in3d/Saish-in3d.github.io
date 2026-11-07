@@ -9,9 +9,9 @@ github: Saish-in3d
 
 permalink: /articles/:year/:title/
 markdown: kramdown
+highlighter: rouge
 kramdown:
-  syntax_highlighter_opts:
-    disable: true
+  syntax_highlighter: rouge
 
 exclude:
   - README.md
