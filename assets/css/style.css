@@ -80,16 +80,47 @@ section { margin-bottom: 48px; }
 .theme-toggle { font: inherit; color: var(--muted); background: none; border: 1px solid var(--line); border-radius: 999px; padding: 4px 12px; cursor: pointer; }
 .theme-toggle:hover { color: var(--text); border-color: var(--accent); }
 
+/* Long words (Unreal identifiers, URLs) wrap instead of pushing the page sideways */
+.prose { overflow-wrap: break-word; }
+.prose code { overflow-wrap: anywhere; }
+.prose pre code { overflow-wrap: normal; }
+.prose table { display: block; max-width: 100%; overflow-x: auto; border-collapse: collapse; margin: 0 0 1.4em; }
+.prose th, .prose td { border: 1px solid var(--line); padding: 6px 10px; text-align: left; }
+.prose ul, .prose ol { padding-left: 1.4em; }
+.prose img { display: block; margin: 0 auto; }
+
+/* Tablets and small laptops */
+@media (max-width: 720px) {
+  main { padding-top: 40px; }
+  .post h1 { font-size: 1.875rem; }
+}
+
+/* Phones */
 @media (max-width: 480px) {
-  body { font-size: 1.0625rem; }
-  h1 { font-size: 1.875rem; }
+  body { font-size: 1.0625rem; line-height: 1.6; }
+  main { padding: 32px 16px 32px; }
+  h1 { font-size: 1.75rem; }
+  .post h1 { font-size: 1.625rem; margin-top: 16px; }
+  .prose h2 { font-size: 1.3125rem; }
+  .prose h3 { font-size: 1.125rem; }
+  .intro { margin-bottom: 32px; }
+  section { margin-bottom: 36px; }
+  .posts li { flex-direction: column; gap: 2px; }
+  .prose pre { font-size: 0.8125rem; padding: 14px; margin-left: -16px; margin-right: -16px; border-radius: 0; }
+  .prose .highlight { margin-left: -16px; margin-right: -16px; }
+  .prose .highlight pre { margin-left: 0; margin-right: 0; }
+  .cover { margin-bottom: 28px; }
+  .site-footer { margin-top: 48px; }
 }
 @media (prefers-reduced-motion: reduce) {
   body { transition: none; }
 }
 
-.video { position: relative; aspect-ratio: 16 / 9; margin: 0 0 1.4em; border-radius: 4px; overflow: hidden; background: var(--surface); }
-.video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+/* Embedded video: full column width, 16:9, with or without the .video wrapper */
+.video { margin: 0 0 1.4em; }
+.prose iframe { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; border: 0; border-radius: 4px; background: var(--surface); }
+.video iframe { margin: 0; }
+.prose > iframe { margin: 0 0 1.4em; }
 
 /* Code highlighting: warm, IDE-style colors for both themes */
 :root {
@@ -115,3 +146,8 @@ section { margin-bottom: 48px; }
 .highlight .hl-fn { color: var(--hl-function); }
 .highlight .hl-type { color: var(--hl-type); }
 .highlight .hl-macro { color: var(--hl-preproc); }
+
+/* Keep text clear of notches and rounded corners on phones in landscape */
+@supports (padding: max(0px)) {
+  main { padding-left: max(16px, env(safe-area-inset-left)); padding-right: max(16px, env(safe-area-inset-right)); }
+}
