@@ -40,8 +40,28 @@
         root.setAttribute("data-theme", next);
         try { localStorage.setItem("theme", next); } catch (e) {}
         sync();
+        renderEmbeds();
       });
       sync();
+
+      // GitHub source embeds (emgithub), styled to match the current theme
+      function renderEmbeds() {
+        var style = root.getAttribute("data-theme") === "light" ? "base16/gruvbox-light-medium" : "base16/gruvbox-dark-medium";
+        document.querySelectorAll(".gh-embed").forEach(function (box) {
+          box.innerHTML = "";
+          var target = new URL(box.dataset.target);
+          target.searchParams.set("ts", "4");
+          var src = "https://emgithub.com/embed-v2.js?target=" + encodeURIComponent(target.href) +
+            "&style=" + encodeURIComponent(style) +
+            "&type=code&showBorder=on&showLineNumbers=on&showFileMeta=on&showFullPath=on&showCopy=on";
+          if (box.dataset.maxHeight) src += "&maxHeight=" + box.dataset.maxHeight;
+          var s = document.createElement("script");
+          s.src = src;
+          s.async = true;
+          box.appendChild(s);
+        });
+      }
+      renderEmbeds();
     })();
   </script>
   <script>

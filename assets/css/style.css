@@ -151,3 +151,18 @@ section { margin-bottom: 48px; }
 @supports (padding: max(0px)) {
   main { padding-left: max(16px, env(safe-area-inset-left)); padding-right: max(16px, env(safe-area-inset-right)); }
 }
+
+/* GitHub source embeds */
+.gh-embed { margin: 0 0 1.4em; max-width: 100%; min-height: 48px; font-size: 0.875rem; }
+.gh-embed + .gh-embed { margin-top: -0.6em; }
+.gh-embed .emgithub-file { margin: 0 !important; }
+.gh-embed pre, .gh-embed code { font-family: var(--mono) !important; }
+/* Blend the embed into the page: same surface as other code blocks, quiet file bar */
+.gh-embed .emgithub-file { border-color: var(--line) !important; border-radius: 4px !important; overflow: hidden; }
+.gh-embed .hljs, .gh-embed .file-data, .gh-embed .code-area { background: var(--surface) !important; }
+.gh-embed .file-meta { background: var(--bg) !important; color: var(--muted) !important; border-top: 1px solid var(--line) !important; }
+.gh-embed .file-meta a { color: var(--text) !important; }
+@media (max-width: 480px) {
+  .gh-embed { font-size: 0.8125rem; max-width: none; margin-left: -16px; margin-right: -16px; }
+  .gh-embed .emgithub-file { border-radius: 0 !important; border-left: 0 !important; border-right: 0 !important; }
+}
