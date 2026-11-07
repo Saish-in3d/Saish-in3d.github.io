@@ -1,15 +1,6 @@
-# saish.in3d.in
+# Saish Sakharkar
 
-Personal site with projects, portfolio and articles. Built with Jekyll and served by GitHub Pages.
-
-## Editing
-
-| To change | Edit |
-|---|---|
-| Project list (Projects page and "Current work" on home) | `_data/projects.yml` |
-| Portfolio pieces | `portfolio.html`; put images in `assets/img/` and swap each placeholder `div` for an `<img>` |
-| Colors and type | `assets/css/style.css` (variables at the top) |
-| Hero shader | `assets/js/hero.js` |
+Personal site, built with Jekyll and served by GitHub Pages.
 
 ## Writing an article
 
@@ -19,14 +10,15 @@ Add a Markdown file to `_posts/` named `YYYY-MM-DD-your-title.md`:
 ---
 layout: post
 title: "Your title"
-tags: [unreal, shaders]
 ---
 
 Your text here.
 ```
 
-Push to `main` and it appears on the Articles page within a minute or two.
+Push to `main` and it appears in the Articles list on the home page.
 
-## Custom domain
+## Editing
 
-The `CNAME` file sets the domain to `saish.in3d.in`. DNS for `in3d.in` needs a CNAME record `saish` pointing to `saish-in3d.github.io`.
+- Colors and fonts: `assets/css/style.css` (dark theme at the top, light theme below it)
+- Home page: `index.html`
+- Project details for later: `_data/projects.yml`

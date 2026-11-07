@@ -1,20 +1,15 @@
 ---
 layout: default
 title: Articles
-nav: articles
-description: Notes and write-ups on real-time rendering, Unreal Engine and GPU programming.
 ---
-<header class="page-head">
+<header class="intro">
   <h1>Articles</h1>
-  <p>Notes and write-ups on real-time rendering, Unreal Engine internals and GPU programming.</p>
 </header>
-
-<ul class="article-list article-list-full">
+<ul class="posts">
   {% for post in site.posts %}
   <li>
     <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-    <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%-d %b %Y" }}</time>
-    {% if post.excerpt %}<p>{{ post.excerpt | strip_html | truncatewords: 30 }}</p>{% endif %}
+    <time class="meta" datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%b %Y" }}</time>
   </li>
   {% endfor %}
 </ul>

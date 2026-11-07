@@ -1,44 +1,33 @@
 ---
 layout: default
-body_class: home
-hero_shader: true
 ---
-<section class="hero" aria-labelledby="hero-title">
-  <canvas id="hero-canvas" aria-hidden="true"></canvas>
-  <div class="hero-text">
-    <h1 id="hero-title">Saish<br>Sakharkar</h1>
-    <p class="hero-lede">I build real-time graphics tools: Unreal Engine plugins that composite CG into live video, decode camera streams on the GPU, and generate synthetic data for computer vision.</p>
-    <p class="hero-note">The marble here is a live fragment shader, ported from lesson six of my <a href="{{ '/projects/' | relative_url }}#ue-graphics-programming">UE Graphics Programming</a> series.</p>
-  </div>
-</section>
+<header class="intro">
+  <h1>Saish Sakharkar</h1>
+  <p>I build real-time graphics tools in Unreal Engine: compositing CG into live video, GPU stream decoding and synthetic data for computer vision.</p>
+</header>
 
-<section class="block" aria-labelledby="featured-title">
-  <div class="block-head">
-    <h2 id="featured-title">Current work</h2>
-    <a href="{{ '/projects/' | relative_url }}">All projects</a>
-  </div>
-  <ul class="rows">
-    {% for group in site.data.projects %}{% for p in group.items %}{% if p.featured %}
-    <li class="row">
-      <h3><a href="https://github.com/{{ site.github }}/{{ p.repo }}">{{ p.name }}</a></h3>
-      <p>{{ p.summary }}</p>
-      <ul class="tags" aria-label="Built with">{% for t in p.tech %}<li>{{ t }}</li>{% endfor %}</ul>
-    </li>
-    {% endif %}{% endfor %}{% endfor %}
-  </ul>
-</section>
-
-<section class="block" aria-labelledby="writing-title">
-  <div class="block-head">
-    <h2 id="writing-title">Writing</h2>
-    <a href="{{ '/articles/' | relative_url }}">All articles</a>
-  </div>
-  <ul class="article-list">
-    {% for post in site.posts limit:3 %}
+<section aria-labelledby="writing">
+  <h2 id="writing">Articles</h2>
+  {% if site.posts.size > 0 %}
+  <ul class="posts">
+    {% for post in site.posts %}
     <li>
       <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-      <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%b %Y" }}</time>
+      <time class="meta" datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%b %Y" }}</time>
     </li>
     {% endfor %}
   </ul>
+  {% else %}
+  <p class="muted">The first article is on its way.</p>
+  {% endif %}
+</section>
+
+<section aria-labelledby="projects">
+  <h2 id="projects">Projects</h2>
+  <p class="wip">Work in progress. Meanwhile, the code is on <a href="https://github.com/{{ site.github }}">GitHub</a>.</p>
+</section>
+
+<section aria-labelledby="portfolio">
+  <h2 id="portfolio">Portfolio</h2>
+  <p class="wip">Work in progress.</p>
 </section>
