@@ -45,7 +45,8 @@ h2 { font-size: 1.25rem; font-weight: 600; margin: 0 0 12px; }
 .muted, .wip { color: var(--muted); margin: 0; }
 .wip { font-style: italic; }
 
-.intro { margin-bottom: 56px; }
+.intro { margin-bottom: 40px; }
+.about { margin: 0; }
 .intro > p { color: var(--muted); margin: 0; }
 section { margin-bottom: 48px; }
 
