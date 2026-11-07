@@ -59,7 +59,9 @@ section { margin-bottom: 48px; }
 /* Articles */
 .back { font-family: var(--mono); font-size: 0.8125rem; color: var(--muted); }
 .post h1 { margin-top: 24px; margin-bottom: 8px; }
-.post > .meta { margin: 0 0 40px; }
+.post > .meta { margin: 0 0 32px; }
+.cover { display: block; width: 100%; height: auto; border-radius: 4px; margin: 0 0 40px; }
+.prose hr { border: 0; border-top: 1px solid var(--line); margin: 2.5em 0; }
 .prose h2 { font-size: 1.5rem; font-weight: 500; margin: 2em 0 0.5em; }
 .prose h3 { font-size: 1.25rem; font-weight: 600; margin: 1.6em 0 0.4em; }
 .prose p, .prose ul, .prose ol { margin: 0 0 1.1em; }
