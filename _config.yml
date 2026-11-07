@@ -1,0 +1,17 @@
+title: Saish Sakharkar
+tagline: Real-time graphics, Unreal Engine plugins and computer vision.
+description: >-
+  Projects, portfolio and articles by Saish Sakharkar on real-time rendering,
+  Unreal Engine plugin development, GPU compute and synthetic data.
+url: "https://saish.in3d.in"
+baseurl: ""
+github: Saish-in3d
+
+permalink: /articles/:year/:title/
+markdown: kramdown
+kramdown:
+  syntax_highlighter_opts:
+    disable: true
+
+exclude:
+  - README.md

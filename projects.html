@@ -1,0 +1,26 @@
+---
+layout: default
+title: Projects
+nav: projects
+permalink: /projects/
+description: Unreal Engine plugins, applied projects, graphics experiments and games by Saish Sakharkar.
+---
+<header class="page-head">
+  <h1>Projects</h1>
+  <p>Open-source plugins, tools and experiments. Every project links to its source on GitHub.</p>
+</header>
+
+{% for group in site.data.projects %}
+<section class="block" aria-labelledby="g-{{ group.group | slugify }}">
+  <h2 id="g-{{ group.group | slugify }}" class="group-title">{{ group.group }}</h2>
+  <ul class="rows">
+    {% for p in group.items %}
+    <li class="row" id="{{ p.name | slugify }}">
+      <h3><a href="https://github.com/{{ site.github }}/{{ p.repo }}">{{ p.name }}</a></h3>
+      <p>{{ p.summary }}</p>
+      <ul class="tags" aria-label="Built with">{% for t in p.tech %}<li>{{ t }}</li>{% endfor %}</ul>
+    </li>
+    {% endfor %}
+  </ul>
+</section>
+{% endfor %}

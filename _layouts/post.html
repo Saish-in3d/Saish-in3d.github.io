@@ -1,0 +1,14 @@
+---
+layout: default
+nav: articles
+---
+<article class="post">
+  <header class="post-head">
+    <a class="back" href="{{ '/articles/' | relative_url }}">All articles</a>
+    <h1>{{ page.title }}</h1>
+    <p class="post-meta"><time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%-d %B %Y" }}</time>{% if page.tags.size > 0 %}, filed under {{ page.tags | join: ", " }}{% endif %}</p>
+  </header>
+  <div class="prose">
+    {{ content }}
+  </div>
+</article>

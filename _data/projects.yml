@@ -1,0 +1,78 @@
+# Each group appears as a section on the Projects page.
+# featured: true also shows the project on the home page.
+
+- group: Unreal Engine plugins
+  items:
+    - name: SynthPass
+      repo: SynthPass
+      featured: true
+      summary: >-
+        Renders Unreal CG directly against live or recorded video in a single pass,
+        producing photorealistic frames for training data, simulation or real-time display.
+        Translucent materials resolve against the real plate, with clean alpha mattes and
+        per-actor isolation for segmentation targets.
+      tech: [UE5, C++, HLSL, Render graph]
+
+    - name: FrameLink
+      repo: FrameLink-UE
+      featured: true
+      summary: >-
+        GPU-accelerated video stream ingest. Decodes live MJPEG from IP cameras, drones or
+        sockets with NVIDIA nvJPEG and renders straight into a texture, with no CPU decode step.
+        Also encodes any texture back to a compressed buffer. Fully Blueprint-exposed.
+      tech: [UE5, C++, CUDA, nvJPEG, DirectX 12]
+
+    - name: CrazyRTUtilities
+      repo: CrazyRTUtilities
+      summary: >-
+        Render target utilities as an engine subsystem, including an FXAA compute shader
+        pass that runs on any render target.
+      tech: [UE5, C++, Compute shaders]
+
+    - name: NDI for Linux
+      repo: NDI_Linux
+      summary: >-
+        NDI media plugin for Unreal Engine 5.6, building on both Windows and Linux.
+      tech: [UE5, C++, NDI]
+
+- group: Applied projects
+  items:
+    - name: TwinOverlayUE
+      repo: TwinOverlayUE
+      featured: true
+      summary: >-
+        Unreal Engine 5.8 project that uses SynthPass to composite CG warehouse content over
+        recorded CCTV footage in one render pass, driven by a single controller actor.
+      tech: [UE 5.8, C++, SynthPass]
+
+- group: Learning and experiments
+  items:
+    - name: UE Graphics Programming
+      repo: UEGraphicsProgramming
+      summary: >-
+        A lesson-by-lesson series of compute and vertex/pixel shaders in Unreal: first compute
+        shader, structured buffers and readback, procedural noise, wood and marble, mesh
+        deformation, GPU particles and instanced-mesh boids.
+      tech: [UE5, HLSL, Compute shaders]
+
+    - name: Vulkan Learning
+      repo: Vulkan-Learning
+      summary: >-
+        Working through the Vulkan API from scratch in C++, with GLFW for windowing and Slang
+        for shaders.
+      tech: [Vulkan, C++, Slang, GLFW]
+
+- group: Games
+  items:
+    - name: Echo Must Escape
+      repo: Echo-Must-Escape
+      summary: >-
+        Action game demo focused on animation, cutscenes, melee combat, root-motion dodges,
+        physics breakables and an inventory system, against a self-destruct countdown.
+      tech: [UE5, C++, Animation, Sequencer]
+
+    - name: SimpleShooter
+      repo: SimpleShooter
+      summary: >-
+        A third-person shooter built in Unreal Engine with C++.
+      tech: [UE, C++]
