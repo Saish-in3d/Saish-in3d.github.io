@@ -33,7 +33,7 @@ The interface lives in the `Engine` module (`Engine/Public/SceneViewExtension.h`
 
 The headers you'll typically include:
 
-![Scene View Extension headers](https://dev-to-uploads.s3.us-east-2.amazonaws.com/uploads/articles/of52rlc4t9zbmxej8lob.png)
+<figure class="diagram"><a href="/assets/diagrams/ch2-sve-headers.svg" title="Open full size"><img src="/assets/diagrams/ch2-sve-headers.svg" alt="Scene View Extension headers" width="1234" height="414" loading="lazy"></a></figure>
 
 One header to be careful with: `FPostProcessingInputs`, the argument to `PrePostProcessPass_RenderThread`, is defined in `Renderer/Internal/PostProcess/PostProcessInputs.h`. You can override the hook with only a forward declaration. But if you want to read its members, you have to add `Renderer/Internal` to your include paths, and nothing in `Internal` or `Private` is a stable API. Stay in `Public` wherever you can.
 
@@ -91,19 +91,19 @@ Who should hold the pointer? Something that lives as long as the effect should: 
 ## 3. Every injection point in the frame
 The hooks follow the frame from Game-thread setup to the end of rendering. Let's see which thread calls them.
 
-![Where a Scene View Extension runs in one frame](https://dev-to-uploads.s3.us-east-2.amazonaws.com/uploads/articles/8cljusi7pyelnu02vp27.png)
+<figure class="diagram"><a href="/assets/diagrams/ch2-sve-frame-timeline.svg" title="Open full size"><img src="/assets/diagrams/ch2-sve-frame-timeline.svg" alt="Where a Scene View Extension runs in one frame" width="1342" height="1668" loading="lazy"></a></figure>
 
 ### 3.1 Game thread hooks: shaping the MVP
 These hooks run while the engine builds the view family for the _next_ frame. They don't take an `FRDGBuilder`, so you can't add passes here. Their job is to change _what_ gets rendered, not _how_.
 
-![Game thread hooks](https://dev-to-uploads.s3.us-east-2.amazonaws.com/uploads/articles/is8qkpibsvqlrpcse53p.png)
+<figure class="diagram"><a href="/assets/diagrams/ch2-game-thread-hooks.svg" title="Open full size"><img src="/assets/diagrams/ch2-game-thread-hooks.svg" alt="Game thread hooks" width="1254" height="498" loading="lazy"></a></figure>
 
 Let's take a closer look at `BeginRenderViewFamily` . It's the last point where you're on the Game thread and know that a frame is about to be rendered. It's the correct place to copy settings, `UObject` data and texture resource pointers into a plain struct that the Render-thread hooks will read. Reading `UObject`s directly from Render-thread hooks is the kind of data race Chapter 1 warned about. It usually works, until the Game thread changes the object in the middle of a frame. You also need to consider the copy cost for data from one thread to another. It a tradeoff between performance and unsafe code (Just like rust providing memory safety at compile times but programmers need to write unsafe() code at some places to extract every drop of perf)
 
 ### 3.2 Render thread: the scene renderer
 These hooks receive an `FRDGBuilder&`. As Chapter 1 explained, nothing runs when you call RDG. You're adding passes to a graph that executes later, and the graph orders them after whatever came before your hook.
 
-![Render thread hooks](https://dev-to-uploads.s3.us-east-2.amazonaws.com/uploads/articles/djkpqs6g4fpkp7myvfgz.png)
+<figure class="diagram"><a href="/assets/diagrams/ch2-render-thread-hooks.svg" title="Open full size"><img src="/assets/diagrams/ch2-render-thread-hooks.svg" alt="Render thread hooks" width="1274" height="857" loading="lazy"></a></figure>
 
 You can see that the per-view hooks (`PreRenderView`, `PrePostProcessPass`, `PostRenderView`) run once for _each_ view. Split screen, stereo rendering and scene captures with multiple views all call them more than once per frame, so don't assume one call means one frame.
 
@@ -116,7 +116,7 @@ This hook runs on the Render thread, and it reads a `UObject` (the subsystem) di
 
 These are the stages in 5.6, in the order they run in the frame. The engine header notes that each one sits immediately before a post-process material blendable location, so if you know the material blend locations, you already know these:
 
-![Post-processing injection stages](https://dev-to-uploads.s3.us-east-2.amazonaws.com/uploads/articles/hilcgbieshf3ovbmzr17.png)
+<figure class="diagram"><a href="/assets/diagrams/ch2-postprocess-stages.svg" title="Open full size"><img src="/assets/diagrams/ch2-postprocess-stages.svg" alt="Post-processing injection stages" width="1324" height="703" loading="lazy"></a></figure>
 
 The plugin's stage, FXAA, comes after tonemapping. So the composite blends display-ready colors with the video, which is the space the footage is already in. Here's the FXAA case from `PostProcessing.cpp`, because it surprises people:
 

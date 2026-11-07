@@ -27,7 +27,7 @@ That specialized hardware eventually became what we know today as "GPUs".
 
 **SIMT (Single Instruction, Multiple Threads):** The GPU's model. Threads aren't scheduled individually. They're bundled into groups of 32 (a *warp* on NVIDIA) or 32/64 (a *wavefront* on AMD), and every thread in the group executes the same instruction at the same time, each on its own data. You write the shader as if it were one thread handling one pixel, and the hardware runs it 32 or 64 at a time.
 
-![SISD vs SIMD vs SIMT](https://dev-to-uploads.s3.us-east-2.amazonaws.com/uploads/articles/m3hrvucabs8ywwaxeote.png)
+<figure class="diagram"><a href="/assets/diagrams/ch1-sisd-simd-simt.svg" title="Open full size"><img src="/assets/diagrams/ch1-sisd-simd-simt.svg" alt="SISD vs SIMD vs SIMT" width="1312" height="632" loading="lazy"></a></figure>
 
 
 ## 2. Character building: Understanding the hardware and its workings technically, CPU, GPU and PCIe bridge
@@ -38,7 +38,7 @@ A modern desktop CPU has somewhere between 8 and 24 physical cores, running at r
 
 Most of that complex stuff above exists to hide one problem: memory is slow. Reading from main memory takes around 70 to 100 nanoseconds, which is several hundred clock cycles staying idle. So CPUs has dedicated hardware for caches.
 
-![CPU memory hierarchy](https://dev-to-uploads.s3.us-east-2.amazonaws.com/uploads/articles/rb4ip9j8hblun4ocldts.png)
+<figure class="diagram"><a href="/assets/diagrams/ch1-cpu-memory-hierarchy.svg" title="Open full size"><img src="/assets/diagrams/ch1-cpu-memory-hierarchy.svg" alt="CPU memory hierarchy" width="1032" height="512" loading="lazy"></a></figure>
 
 Data moves between these levels in 64-byte cache lines, not individual values (like tetris but all blocks are horizontal lines). Read one float and its fifteen neighbors come along for free. Code that reads memory in order gets that benefit, while code that jumps around (pointer chasing through randomly spawned actors and components, for example) keeps paying the full trip to DRAM.
 
@@ -73,7 +73,7 @@ Few questions that clears the fog about GPU, streaming multiprocessors and warps
 ### 2.3 The bridge: PCIe
 On a desktop PC, the CPU and a discrete GPU are separate devices with separate memory, connected by PCI Express. This is the narrowest pipe in the whole system.
 
-![PCIe bandwidth](https://dev-to-uploads.s3.us-east-2.amazonaws.com/uploads/articles/6x9653y75loktzzzclgo.png)
+<figure class="diagram"><a href="/assets/diagrams/ch1-pcie-bandwidth.svg" title="Open full size"><img src="/assets/diagrams/ch1-pcie-bandwidth.svg" alt="PCIe bandwidth" width="1032" height="468" loading="lazy"></a></figure>
 
 A 4K render target in a 16-bit float format is about 66 MB. Copying it across PCIe 4.0 takes around 2.6 ms, roughly 16% of a 60 FPS frame budget, before the GPU has done any work on it. The same texture read from VRAM by a shader is a lot cheaper. The lesson is simple... data should cross the bus as rarely as possible. Upload once, keep it on the GPU, and only bring results back when something on the CPU truly needs them.
 
@@ -126,7 +126,7 @@ The layer above it is the **Render Dependency Graph (RDG)**, and this is where 
 
 So the stack looks like this
 
-![Unreal render stack](https://dev-to-uploads.s3.us-east-2.amazonaws.com/uploads/articles/1yhxihf20yyes6xdrqfe.png)
+<figure class="diagram"><a href="/assets/diagrams/ch1-unreal-render-stack.svg" title="Open full size"><img src="/assets/diagrams/ch1-unreal-render-stack.svg" alt="Unreal render stack" width="529" height="730" loading="lazy"></a></figure>
 
 This is the realisation I mentioned in the prologue. The question isn't whether to use a graphics library in Unreal. The RHI and RDG already are one. The work is learning its rules.
 

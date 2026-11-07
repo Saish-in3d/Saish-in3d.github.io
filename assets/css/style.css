@@ -152,17 +152,54 @@ section { margin-bottom: 48px; }
   main { padding-left: max(16px, env(safe-area-inset-left)); padding-right: max(16px, env(safe-area-inset-right)); }
 }
 
-/* GitHub source embeds */
-.gh-embed { margin: 0 0 1.4em; max-width: 100%; min-height: 48px; font-size: 0.875rem; }
-.gh-embed + .gh-embed { margin-top: -0.6em; }
-.gh-embed .emgithub-file { margin: 0 !important; }
-.gh-embed pre, .gh-embed code { font-family: var(--mono) !important; }
-/* Blend the embed into the page: same surface as other code blocks, quiet file bar */
-.gh-embed .emgithub-file { border-color: var(--line) !important; border-radius: 4px !important; overflow: hidden; }
-.gh-embed .hljs, .gh-embed .file-data, .gh-embed .code-area { background: var(--surface) !important; }
-.gh-embed .file-meta { background: var(--bg) !important; color: var(--muted) !important; border-top: 1px solid var(--line) !important; }
-.gh-embed .file-meta a { color: var(--text) !important; }
+/* GitHub source embeds (assets/js/gh-embed.js) */
+.gh-embed { margin: 0 0 1.4em; }
+.gh-embed + .gh-embed { margin-top: -0.4em; }
+.src { margin: 0; border: 1px solid var(--line); border-radius: 4px; overflow: hidden; background: var(--surface); }
+.src-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 7px 12px; border-bottom: 1px solid var(--line); background: var(--bg); font-family: var(--mono); font-size: 0.75rem; color: var(--muted); }
+.src-path { display: flex; min-width: 0; white-space: nowrap; }
+.src-dir { min-width: 0; overflow: hidden; text-overflow: ellipsis; direction: rtl; text-align: left; }
+.src-name { flex-shrink: 0; color: var(--text); }
+.src-actions { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+.src-copy { font: inherit; color: var(--muted); background: none; border: 0; padding: 0; cursor: pointer; }
+.src-copy:hover, .src-link:hover { color: var(--text); }
+.src-link { color: var(--muted); text-decoration: none; }
+.src-body { overflow: auto; }
+.src-code { margin: 0; padding: 12px 0; background: none; border-radius: 0; font-family: var(--mono); font-size: 0.8125rem; line-height: 1.6; overflow: visible; }
+.src-code code { display: grid; grid-template-columns: auto 1fr; width: max-content; min-width: 100%; background: none; padding: 0; font-size: inherit; }
+.src-code .ln { position: sticky; left: 0; padding: 0 12px 0 14px; text-align: right; color: var(--muted); opacity: 0.6; background: var(--surface); user-select: none; }
+.src-code .lc { padding-right: 16px; white-space: pre; }
+.src-status { margin: 0; padding: 14px 16px; border: 1px dashed var(--line); border-radius: 4px; color: var(--muted); font-family: var(--mono); font-size: 0.8125rem; }
+
+/* highlight.js tokens, mapped to the site's code colours */
+.src .hljs-comment, .src .hljs-quote { color: var(--hl-comment); font-style: italic; }
+.src .hljs-keyword, .src .hljs-selector-tag, .src .hljs-literal { color: var(--hl-keyword); }
+.src .hljs-type, .src .hljs-title.class_, .src .hljs-class .hljs-title { color: var(--hl-type); }
+.src .hljs-string, .src .hljs-regexp, .src .hljs-char.escape_ { color: var(--hl-string); }
+.src .hljs-number { color: var(--hl-number); }
+.src .hljs-title.function_, .src .hljs-built_in, .src .hljs-function .hljs-title { color: var(--hl-function); }
+.src .hljs-meta, .src .hljs-meta .hljs-keyword, .src .hljs-operator { color: var(--hl-preproc); }
+.src .hljs-meta .hljs-string { color: var(--hl-string); }
+.src .hljs-attr, .src .hljs-attribute, .src .hljs-variable, .src .hljs-template-variable { color: var(--hl-class); }
+.src .hl-fn { color: var(--hl-function); }
+.src .hl-type { color: var(--hl-type); }
+.src .hl-macro { color: var(--hl-preproc); }
+
 @media (max-width: 480px) {
-  .gh-embed { font-size: 0.8125rem; max-width: none; margin-left: -16px; margin-right: -16px; }
-  .gh-embed .emgithub-file { border-radius: 0 !important; border-left: 0 !important; border-right: 0 !important; }
+  .gh-embed { margin-left: -16px; margin-right: -16px; }
+  .src { border-radius: 0; border-left: 0; border-right: 0; }
+  .src-dir { display: none; }
+}
+
+/* Excalidraw diagrams (assets/diagrams/*.svg): transparent background, Excalidraw's own dark-mode filter */
+.diagram { margin: 1.6em 0; }
+.diagram a { display: block; text-decoration: none; cursor: zoom-in; }
+.diagram img { display: block; width: 100%; height: auto; margin: 0; }
+:root:not([data-theme="light"]) .diagram img { filter: invert(93%) hue-rotate(180deg); }
+@media (min-width: 900px) {
+  /* let wide diagrams breathe beyond the text column on large screens */
+  .diagram { margin-left: -8vw; margin-right: -8vw; }
+}
+@media (max-width: 480px) {
+  .diagram { margin-left: -8px; margin-right: -8px; }
 }
